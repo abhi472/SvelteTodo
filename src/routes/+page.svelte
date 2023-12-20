@@ -1,27 +1,42 @@
-<p></p>
-<button on:click={increment}>click</button>
-
-<p>
-    {list}
-</p>
-
-<p> Amount is {amount}</p>
-
 <script>
-let list = ['a', 'b', 'c', 'd'];
+let album = [
+    {track: 'Track 1', length: 100},
+    {track: 'Track 2', length: 200},
+    {track: 'Track 3', length: 300},
+]
+
 // let amount = list.length; this is not gonna update itself
-$: amount  = list.length;
+// $: amount  = list.length;
+$: albumLength = getAlbumLength(album);
+
+function getAlbumLength(album) {
+    let lengthSeconds = album.reduce (
+        (a,b) => {
+            return a+b.length;
+        }, 0);
+
+        let [minutes, seconds] = (lengthSeconds/60)
+        .toFixed(2)
+        .toString()
+        .split('.');
+        return {minutes,seconds}
+    
+}
  
-function increment() {
+function addTrack() {
 
-    // list.push('e');
-    // list = list;
+    album = [...album, {track: 'Track 4', length: 200}];
 
-    //we can update the upper code as 
-    list = [...list, 'e'];
 }
 
 
 
 
 </script>
+
+<p></p>
+<button on:click={addTrack}>click</button>
+
+<p>
+    Album length is {albumLength.minutes} minutes and {albumLength.seconds} seconds
+</p>
