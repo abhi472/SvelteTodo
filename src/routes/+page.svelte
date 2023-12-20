@@ -2,15 +2,25 @@
 <button on:click={increment}>click</button>
 
 <p>
-    Clicked {count} {count === 1 ? 'time': 'times'}
+    {list}
 </p>
 
+<p> Amount is {amount}</p>
+
 <script>
-import { onMount } from 'svelte';
-let count = 0;
+let list = ['a', 'b', 'c', 'd'];
+// let amount = list.length; this is not gonna update itself
+$: amount  = list.length;
+ 
 function increment() {
-    count += 1;
+
+    // list.push('e');
+    // list = list;
+
+    //we can update the upper code as 
+    list = [...list, 'e'];
 }
+
 
 
 
